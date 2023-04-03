@@ -11,4 +11,10 @@
     <string name="calc_btn_ce_text">CE</string>
     <string name="calc_btn_clear_text">C</string>
     <string name="calc_btn_backspace_text">\u232B</string>
+
+    <!-- Row2 -->
+    <string name="calc_btn_reverse_text">\u00B9/\u2093</string>
+    <string name="calc_btn_sqrt_text">\u2093\u00B2</string>
+    <string name="calc_btn_radix_text">\u00B2\u221A\u2093</string>
+    <string name="calc_btn_divide_text">\u00F7</string>
 </resources>

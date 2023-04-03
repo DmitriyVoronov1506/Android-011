@@ -77,5 +77,31 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/calc_btn_reverse"
+                style="@style/calc_btn_fn_style"
+                android:text="@string/calc_btn_reverse_text" />
+
+            <Button
+                android:id="@+id/calc_btn_sqrt"
+                style="@style/calc_btn_fn_style"
+                android:text="@string/calc_btn_sqrt_text" />
+
+            <Button
+                android:id="@+id/calc_btn_radix"
+                style="@style/calc_btn_fn_style"
+                android:text="@string/calc_btn_radix_text" />
+
+            <Button
+                android:id="@+id/calc_btn_divide"
+                style="@style/calc_btn_fn_style"
+                android:text="@string/calc_btn_divide_text" />
+
+        </TableRow>
+
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
