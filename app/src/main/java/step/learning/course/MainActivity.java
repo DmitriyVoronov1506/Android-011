@@ -2,6 +2,7 @@ package step.learning.course;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,18 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(this::buttonClick);
+        findViewById(R.id.button_calc).setOnClickListener(this::buttonCalcClick);
 
         Button button2 = findViewById(R.id.button2);
         button2.setOnClickListener(this::button2Click);
     }
 
-    private void buttonClick(View view) {
-        TextView textHello = findViewById(R.id.text_hello);
-        String txt = textHello.getText().toString();
-        txt += "!";
-        textHello.setText(txt);
+    private void buttonCalcClick(View view) {
+        Intent activityIntent = new Intent(MainActivity.this, CalcActivity.class);
+        startActivity(activityIntent);
     }
 
     private void button2Click(View view) {

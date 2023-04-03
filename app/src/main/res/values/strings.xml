@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Android-011</string>
-    <string name="button_name">Add !</string>
+
+    <!-- Main Activity -->
+    <string name="title_text">Android basics</string>
+    <string name="button_calc_text">Calculator</string>
     <string name="button_name2">Del !</string>
+
+    <!-- Calc Activity -->
+    <string name="calc_btn_percent_text">%</string>
+    <string name="calc_btn_ce_text">CE</string>
+    <string name="calc_btn_clear_text">C</string>
+    <string name="calc_btn_backspace_text">\u232B</string>
 </resources>

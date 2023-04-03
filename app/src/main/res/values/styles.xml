@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="calc_btn_fn_style" parent="TextAppearance.AppCompat">
+        <item name="android:layout_margin">3dp</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/calc_fn_button_fg</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/btn_fn_shape</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>
