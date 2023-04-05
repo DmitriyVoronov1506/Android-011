@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Android-011</string>
 
     <!-- Main Activity -->
@@ -13,8 +14,31 @@
     <string name="calc_btn_backspace_text">\u232B</string>
 
     <!-- Row2 -->
-    <string name="calc_btn_reverse_text">\u00B9/\u2093</string>
-    <string name="calc_btn_sqrt_text">\u2093\u00B2</string>
-    <string name="calc_btn_radix_text">\u00B2\u221A\u2093</string>
+    <string name="calc_btn_inverse_text">\u00B9/\u2093</string>
+    <string name="calc_btn_square_text">\u2093\u00B2</string>
+    <string name="calc_btn_root_text">\u00B2\u221A\u2093</string>
     <string name="calc_btn_divide_text">\u00F7</string>
+
+    <!-- Other rows -->
+    <string name="calc_btn_multiplication_text">\u2715</string>
+    <string name="calc_btn_minus_text">\u2212</string>
+    <string name="calc_btn_plus_text">\uFF0B</string>
+    <string name="calc_btn_plus_minus_text">\u207A\u2215\u208B</string>
+    <string name="calc_btn_comma_text">,</string>
+    <string name="calc_btn_equal_text">\uFF1D</string>
+
+    <!-- Digits -->
+    <string name="calc_btn_0_text">0</string>
+    <string name="calc_btn_1_text">1</string>
+    <string name="calc_btn_2_text">2</string>
+    <string name="calc_btn_3_text">3</string>
+    <string name="calc_btn_4_text">4</string>
+    <string name="calc_btn_5_text">5</string>
+    <string name="calc_btn_6_text">6</string>
+    <string name="calc_btn_7_text">7</string>
+    <string name="calc_btn_8_text">8</string>
+    <string name="calc_btn_9_text">9</string>
+
+    <string name="calc_minus_sign">\u2212</string>
+
 </resources>

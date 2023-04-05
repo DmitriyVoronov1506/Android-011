@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="calc_btn_fn_style" parent="TextAppearance.AppCompat">
-        <item name="android:layout_margin">3dp</item>
+    <style name="calc_btn_base_style" parent="TextAppearance.AppCompat">
+        <item name="android:layout_margin">2dp</item>
         <item name="backgroundTint">@null</item>
-        <item name="android:textColor">@color/calc_fn_button_fg</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/btn_fn_shape</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="calc_btn_fn_style" parent="calc_btn_base_style">
+        <item name="android:background">@drawable/btn_fn_shape</item>
+        <item name="android:textColor">@color/calc_fn_button_fg</item>
+    </style>
+
+    <style name="calc_btn_op_style" parent="calc_btn_base_style">
+        <item name="android:background">@drawable/btn_op_shape</item>
+        <item name="android:textColor">@color/calc_op_button_fg</item>
+    </style>
+
+    <style name="calc_btn_eq_style" parent="calc_btn_base_style">
+        <item name="android:background">@drawable/btn_eq_shape</item>
+        <item name="android:textColor">@color/calc_eq_button_fg</item>
     </style>
 
 </resources>
