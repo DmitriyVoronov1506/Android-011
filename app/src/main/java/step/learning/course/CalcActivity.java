@@ -1,13 +1,16 @@
 package step.learning.course;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 public class CalcActivity extends AppCompatActivity {
 
     private TextView tvHistory;
@@ -15,6 +18,9 @@ public class CalcActivity extends AppCompatActivity {
 
     String minusSign;
     String zeroSign;
+    String commaSign;
+    private boolean needClear;
+    int lengthCountWithoutComa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +29,14 @@ public class CalcActivity extends AppCompatActivity {
 
         minusSign = getString(R.string.calc_minus_sign);
         zeroSign = getString(R.string.calc_btn_0_text);
+        commaSign = getString(R.string.calc_comma_sign);
 
         tvHistory = findViewById(R.id.tv_history);
         tvResult = findViewById(R.id.tv_result);
 
-        tvHistory.setText("");
-        displayResult("");
+        lengthCountWithoutComa = 0;
+
+        clearClick(null);
 
         for(int i = 0; i < 10; i++){
 
@@ -44,6 +52,117 @@ public class CalcActivity extends AppCompatActivity {
 
         findViewById(R.id.calc_btn_backspace).setOnClickListener(this::backspaceClick);
         findViewById(R.id.calc_btn_plus_minus).setOnClickListener(this::plusMinusClick);
+        findViewById(R.id.calc_btn_comma).setOnClickListener(this::commaClick);
+        findViewById(R.id.calc_btn_clear).setOnClickListener(this::clearClick);
+        findViewById(R.id.calc_btn_ce).setOnClickListener(this::clearEditClick);
+        findViewById(R.id.calc_btn_square).setOnClickListener(this::squareClick);
+        findViewById(R.id.calc_btn_inverse).setOnClickListener(this::inverseClick);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle savingState) {
+
+        // savingState - ~словарь сохраняющихся данных
+        super.onSaveInstanceState(savingState);  // Оставить, нужно обязательно
+        Log.d("CalcActivity", "onSaveInstanceState");
+
+        // добавляем к сохраняемым данным свои значения
+        savingState.putCharSequence( "history", tvHistory.getText() ) ;
+        savingState.putCharSequence( "result", tvResult.getText() ) ;
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedState) {
+
+        super.onRestoreInstanceState(savedState);
+        Log.d("CalcActivity", "onRestoreInstanceState");
+
+        tvHistory.setText( savedState.getCharSequence("history"));
+        tvResult.setText( savedState.getCharSequence("result" ));
+    }
+
+    private void inverseClick(View view) {
+
+        String result = tvResult.getText().toString();
+        double arg;
+        try {
+            arg = Double.parseDouble(
+                    result
+                            .replace(minusSign, "-")
+                            .replaceAll(zeroSign, "0")
+                            .replace(commaSign, ".")
+            );
+        }
+        catch (NumberFormatException | NullPointerException ignored) {
+            Toast.makeText(
+                            this,
+                            R.string.calc_error_parse,
+                            Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+
+        tvHistory.setText("1/" + result + " =");
+        arg = 1 / arg;
+
+        displayResult(arg);
+        needClear = true;
+    }
+
+    private void squareClick(View view) {
+
+        String result = tvResult.getText().toString();
+        double arg;
+
+        try {
+
+            arg = Double.parseDouble(
+                    result
+                            .replace( minusSign, "-" )
+                            .replaceAll( zeroSign, "0" )
+            ) ;
+        }
+        catch(NumberFormatException | NullPointerException ignored) {
+
+            Toast.makeText(
+                            this,
+                            R.string.calc_error_parse,
+                            Toast.LENGTH_SHORT )
+                    .show();
+            return;
+        }
+
+        tvHistory.setText(getString(R.string.calc_square_history, result));
+
+        arg *= arg ;
+        displayResult(arg) ;
+
+        needClear = true ;
+    }
+
+    private void clearClick(View view) {
+
+        tvHistory.setText( "" ) ;
+        clearEditClick(view);
+    }
+
+    private void clearEditClick(View view) {
+
+        lengthCountWithoutComa = 0;
+        displayResult("") ;
+    }
+
+    private void commaClick(View view) {
+
+        String result = tvResult.getText().toString();
+
+        if (result.contains(commaSign) || lengthCountWithoutComa >= 10 ) {
+            return;
+        }
+
+        result += commaSign;
+        displayResult(result);
     }
 
     private void plusMinusClick(View view){
@@ -67,8 +186,21 @@ public class CalcActivity extends AppCompatActivity {
     }
 
     private void backspaceClick(View view){
+
+        if (needClear) {
+            needClear = false;
+            clearClick(view);
+            return;
+        }
+
         String result = tvResult.getText().toString();
+
+        if(!result.endsWith(commaSign)) {
+            lengthCountWithoutComa--;
+        }
+
         result = result.substring(0, result.length() - 1);
+
         displayResult(result);
     }
 
@@ -76,17 +208,22 @@ public class CalcActivity extends AppCompatActivity {
 
         String result = tvResult.getText().toString();
 
-        if(result.length() >= 10){
+        if(result.equals(zeroSign) || needClear) {
+
+            result = "" ;
+            needClear = false;
+            lengthCountWithoutComa = 0;
+        }
+
+        if(lengthCountWithoutComa >= 10){
             return;
         }
 
         String digit = ((Button)view).getText().toString();
 
-        if( result.equals("0") ) {
-            result = "";
-        }
-
+        lengthCountWithoutComa += 1;
         result += digit;
+
         displayResult(result);
     }
 
@@ -97,5 +234,17 @@ public class CalcActivity extends AppCompatActivity {
         }
 
         tvResult.setText(result);
+    }
+
+    private void displayResult(double arg) {
+
+        long argInt = (long)arg ;
+        String result = argInt == arg ? "" + argInt : "" + arg ;
+
+        result = result
+                .replace( "-", minusSign )
+                .replaceAll( "0", zeroSign ) ;
+
+        displayResult( result ) ;
     }
 }

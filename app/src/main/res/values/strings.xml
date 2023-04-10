@@ -8,6 +8,11 @@
     <string name="button_name2">Del !</string>
 
     <!-- Calc Activity -->
+    <string name="calc_square_history">(%s)² =</string>
+    <string name="calc_inverse_history">\u215F\u200A(%s) =</string>
+    <string name="calc_error_parse">Argument parse error</string>
+    <string name="calc_error_zero">Division by zero</string>
+    <string name="calc_error_sqrt">Negative under root</string>
     <string name="calc_btn_percent_text">%</string>
     <string name="calc_btn_ce_text">CE</string>
     <string name="calc_btn_clear_text">C</string>
@@ -28,7 +33,7 @@
     <string name="calc_btn_equal_text">\uFF1D</string>
 
     <!-- Digits -->
-    <string name="calc_btn_0_text">0</string>
+    <string name="calc_btn_0_text">\u0298</string>
     <string name="calc_btn_1_text">1</string>
     <string name="calc_btn_2_text">2</string>
     <string name="calc_btn_3_text">3</string>
@@ -40,5 +45,6 @@
     <string name="calc_btn_9_text">9</string>
 
     <string name="calc_minus_sign">\u2212</string>
+    <string name="calc_comma_sign">\u002C</string>
 
 </resources>
