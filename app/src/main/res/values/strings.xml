@@ -5,7 +5,11 @@
     <!-- Main Activity -->
     <string name="title_text">Android basics</string>
     <string name="button_calc_text">Calculator</string>
+    <string name="button_game_text">Game 2048</string>
     <string name="button_name2">Del !</string>
+
+    <!-- Game 2048 Activity -->
+
 
     <!-- Calc Activity -->
     <string name="calc_square_history">(%s)² =</string>

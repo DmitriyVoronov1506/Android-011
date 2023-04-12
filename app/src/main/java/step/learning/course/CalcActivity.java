@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +60,58 @@ public class CalcActivity extends AppCompatActivity {
         findViewById(R.id.calc_btn_clear).setOnClickListener(this::clearClick);
         findViewById(R.id.calc_btn_ce).setOnClickListener(this::clearEditClick);
         findViewById(R.id.calc_btn_square).setOnClickListener(this::squareClick);
+        findViewById(R.id.calc_btn_sqrt).setOnClickListener(this::sqrtClick);
         findViewById(R.id.calc_btn_inverse).setOnClickListener(this::inverseClick);
+    }
+
+    private void sqrtClick(View view) {
+
+        String result = tvResult.getText().toString();
+
+        double arg;
+
+        try {
+
+            arg = Double.parseDouble(
+                    result
+                            .replace( minusSign, "-" )
+                            .replaceAll( zeroSign, "0" )
+            ) ;
+        }
+        catch(NumberFormatException | NullPointerException ignored) {
+
+            Toast.makeText(
+                            this,
+                            R.string.calc_error_parse,
+                            Toast.LENGTH_SHORT )
+                    .show();
+            return;
+        }
+
+        Vibrator vibrator;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            VibratorManager vibratorManager = (VibratorManager)getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        }
+        else {
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
+
+        long[] vibratePattern = { 0, 200, 100, 200 };
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            vibrator.vibrate(
+                    VibrationEffect.createWaveform(
+                            vibratePattern, -1 // индекс повтора, -1 - без повторов, один раз
+                    )
+            );
+        }
+        else {
+            //vibrator.vibrate(250); // вибрация 250 мс
+            vibrator.vibrate(vibratePattern, -1);
+        }
     }
 
     @Override

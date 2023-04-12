@@ -16,9 +16,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.button_calc).setOnClickListener(this::buttonCalcClick);
+        findViewById(R.id.button_game).setOnClickListener(this::buttonGameClick);
 
         Button button2 = findViewById(R.id.button2);
         button2.setOnClickListener(this::button2Click);
+    }
+
+    private void buttonGameClick(View view) {
+        Intent activityIntent = new Intent(MainActivity.this, GameActivity.class);
+        startActivity(activityIntent);
     }
 
     private void buttonCalcClick(View view) {
