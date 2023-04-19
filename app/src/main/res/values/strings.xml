@@ -7,9 +7,22 @@
     <string name="button_calc_text">Calculator</string>
     <string name="button_game_text">Game 2048</string>
     <string name="button_name2">Del !</string>
+    <string name="button_chat_text">The Chat</string>
 
     <!-- Game 2048 Activity -->
+    <string name="game_title">2048</string>
+    <string name="game_description">Join the numbers and get to 2048</string>
+    <string name="game_score">score\n%s</string>
+    <string name="game_best_score">best\n%s</string>
+    <string name="game_new_btn">new</string>
+    <string name="game_undo_btn">undo</string>
 
+    <string name="game_win_dialog_title">You win!</string>
+    <string name="game_win_dialog_message">You collect 2048 and win!\nDo you want to continue?</string>
+    <string name="game_yes_dialog_button">Yes</string>
+    <string name="game_new_dialog_button">New game</string>
+    <string name="game_exit_dialog_button">Close</string>
+    <string name="game_over_dialog_title">You loose!</string>
 
     <!-- Calc Activity -->
     <string name="calc_square_history">(%s)² =</string>

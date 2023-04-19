@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXScale="1.0"
+    android:fromYScale="1.0"
+    android:toXScale="1.2"
+    android:toYScale="1.2"
+    android:duration="300"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:repeatMode="reverse"
+    android:repeatCount="1"
+    />
+    <!-- Для таких анимаций добавляется "неподвижная точка" - pivot
+         По умолчанию - (0,0) что не всегда правильно
+          android:repeatMode и android:repeatCount не подсказываются, надо
+          запомнить.
+         В режиме android:repeatMode="reverse" кадр анимации длится в 2
+          раза дольше (плавный ход from-to и to-from), и
+          repeatCount задает полукадры после первого, поэтому не прямо
+          соответствует количеству "проигрышей" анимации
+         Без "reverse" repeatCount задает кол-во повторов, но переход
+          к повтору происходит резко -->

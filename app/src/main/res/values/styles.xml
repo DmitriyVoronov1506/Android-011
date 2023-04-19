@@ -26,4 +26,80 @@
         <item name="android:textColor">@color/calc_eq_button_fg</item>
     </style>
 
+    <!-- region Game 2048 Styles -->
+    <style name="GameCell" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="GameCell_0" parent="GameCell">
+        <item name="android:background">@color/game_bg_0</item>
+        <item name="android:textColor">@color/game_fg_0</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_2" parent="GameCell">
+        <item name="android:background">@color/game_bg_2</item>
+        <item name="android:textColor">@color/game_fg_2</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_4" parent="GameCell">
+        <item name="android:background">@color/game_bg_4</item>
+        <item name="android:textColor">@color/game_fg_4</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_8" parent="GameCell">
+        <item name="android:background">@color/game_bg_8</item>
+        <item name="android:textColor">@color/game_fg_8</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_16" parent="GameCell">
+        <item name="android:background">@color/game_bg_16</item>
+        <item name="android:textColor">@color/game_fg_16</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_32" parent="GameCell">
+        <item name="android:background">@color/game_bg_32</item>
+        <item name="android:textColor">@color/game_fg_32</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_64" parent="GameCell">
+        <item name="android:background">@color/game_bg_64</item>
+        <item name="android:textColor">@color/game_fg_64</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+    <style name="GameCell_128" parent="GameCell">
+        <item name="android:background">@color/game_bg_128</item>
+        <item name="android:textColor">@color/game_fg_128</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+    <style name="GameCell_256" parent="GameCell">
+        <item name="android:background">@color/game_bg_256</item>
+        <item name="android:textColor">@color/game_fg_256</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+    <style name="GameCell_512" parent="GameCell">
+        <item name="android:background">@color/game_bg_512</item>
+        <item name="android:textColor">@color/game_fg_512</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+    <style name="GameCell_1024" parent="GameCell">
+        <item name="android:background">@color/game_bg_1024</item>
+        <item name="android:textColor">@color/game_fg_1024</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="GameCell_2048" parent="GameCell">
+        <item name="android:background">@color/game_bg_2048</item>
+        <item name="android:textColor">@color/game_fg_2048</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="GameCell_4096" parent="GameCell">
+        <item name="android:background">@color/game_bg_4096</item>
+        <item name="android:textColor">@color/game_fg_4096</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+    <!-- endregion -->
+
 </resources>
