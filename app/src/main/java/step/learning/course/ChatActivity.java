@@ -21,6 +21,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -93,6 +94,8 @@ public class ChatActivity extends AppCompatActivity {
                            new ChatMessage(data.getJSONObject(i))
                    );
                 }
+
+                chatMessages.sort(new ChatDateComparator());
             }
             else {
                 Log.d("parseChatMessages", "Content has no 'data' " + loadedContent);
@@ -110,7 +113,12 @@ public class ChatActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
 
         for(ChatMessage message : chatMessages) {
-            sb.append(message.getAuthor()).append(':').append(message.getTxt()).append('\n');
+            sb.append(message.getAuthor())
+                    .append(" : ")
+                    .append(message.getTxt())
+                    .append(" : ")
+                    .append(message.getMoment())
+                    .append('\n');
         }
 
         tvChat.setText(sb.toString());
@@ -206,5 +214,12 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         // endregion
+    }
+
+    private static class ChatDateComparator implements Comparator<ChatMessage> {
+        @Override
+        public int compare(ChatMessage a, ChatMessage b) {
+            return a.getMoment().compareTo(b.getMoment());
+        }
     }
 }
