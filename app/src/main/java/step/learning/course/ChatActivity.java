@@ -6,6 +6,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +32,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ChatActivity extends AppCompatActivity {
@@ -128,9 +130,15 @@ public class ChatActivity extends AppCompatActivity {
     private void showChatMessages() {
 
         Drawable otherBg = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.chat_msg_bg_other);
+        Drawable myBg = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.chat_msg_bg_my);
 
         LinearLayout.LayoutParams marginOther = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         marginOther.setMargins(10, 10, 10, 10);
+        marginOther.gravity = Gravity.START;
+
+        LinearLayout.LayoutParams marginMy = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        marginMy.setMargins(10, 10, 10, 10);
+        marginMy.gravity = Gravity.END;
 
         boolean wasNewMessage = false;
 
@@ -145,8 +153,15 @@ public class ChatActivity extends AppCompatActivity {
             tvMessage.setTag(message);      // связываем View с ChatMessage
             message.setView(tvMessage);
 
-            tvMessage.setBackground(otherBg);
-            tvMessage.setLayoutParams(marginOther);
+            if(message.getAuthor().equals(etAuthor.getText().toString())) {
+                tvMessage.setBackground(myBg);
+                tvMessage.setLayoutParams(marginMy);
+            }
+            else {
+                tvMessage.setBackground(otherBg);
+                tvMessage.setLayoutParams(marginOther);
+            }
+
             tvMessage.setTextSize(18);
             tvMessage.setPadding(10, 7, 10, 7);
 
