@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Chat Activity -->
+    <color name="chat_msg_bg_my">#8DEEF8</color>
+    <color name="chat_msg_bg_other">#F8EA8D</color>
+
     <!-- Calc Activity -->
     <color name="calc_background">#202020</color>
     <color name="calc_history">#919191</color>
