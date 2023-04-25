@@ -1,10 +1,25 @@
 package step.learning.course;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -38,12 +53,16 @@ import java.util.UUID;
 public class ChatActivity extends AppCompatActivity {
 
     private final String CHAT_URL = "https://diorama-chat.ew.r.appspot.com/story";
+    private final String CHANNEL_ID = "chat_notification_channel";
+    private final int POST_NOTIFICATION_REQUEST_CODE = 234;
     private EditText etAuthor;
     private EditText etMessage;
     private LinearLayout chatContainer;
 
     private ScrollView svContainer;
     private List<ChatMessage> chatMessages = new ArrayList<>();
+    private MediaPlayer incomingMessagePlayer;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +70,25 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        handler = new Handler();
+
         etAuthor = findViewById(R.id.chat_et_author);
         etMessage = findViewById(R.id.chat_et_message);
         chatContainer = findViewById(R.id.chat_container);
         svContainer = findViewById(R.id.sv_Container);
 
+        incomingMessagePlayer = MediaPlayer.create(this, R.raw.sound_1);
+
         findViewById(R.id.chat_button_send).setOnClickListener(this::sendMessageClick);
 
+        handler.post(this::updateChat);
+    }
+
+    private void updateChat() {
+
         new Thread(this::getChatMessages).start();
+
+        handler.postDelayed(this::updateChat, 3000);
     }
 
     private void getChatMessages() {
@@ -171,7 +201,16 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         if(wasNewMessage) {
+
             svContainer.post(() -> svContainer.fullScroll(View.FOCUS_DOWN));
+
+            AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+            if(am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
+                incomingMessagePlayer.start();
+            }
+
+            showNotification();
         }
     }
 
@@ -230,6 +269,61 @@ public class ChatActivity extends AppCompatActivity {
         }
         catch (Exception ex) {
             Log.e("postChatMessage", ex.getMessage());
+        }
+    }
+
+    private void showNotification() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    getString(R.string.chat_channel_name),
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            channel.setDescription(getString(R.string.chat_channel_description));
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(ChatActivity.this, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.btn_star_big_on)
+                .setContentTitle("Chat")
+                .setContentText("New incoming message")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Notification notification = notificationBuilder.build();
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        //managerCompat.notify(105, notification);  // Missing permission
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(
+                        ChatActivity.this,
+                        new String[] {
+                                android.Manifest.permission.POST_NOTIFICATIONS
+                        },
+                        POST_NOTIFICATION_REQUEST_CODE
+                );
+
+                return;
+            }
+        }
+
+        managerCompat.notify(105, notification);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == POST_NOTIFICATION_REQUEST_CODE) {
+
         }
     }
 

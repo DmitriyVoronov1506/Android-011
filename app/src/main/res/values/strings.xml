@@ -64,4 +64,8 @@
     <string name="calc_minus_sign">\u2212</string>
     <string name="calc_comma_sign">\u002C</string>
 
+    <!-- Chat Activity -->
+    <string name="chat_channel_name">Chat notification channel</string>
+    <string name="chat_channel_description">Android-011 App. Chat notification channel</string>
+
 </resources>
